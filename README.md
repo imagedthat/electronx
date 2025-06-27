@@ -488,9 +488,6 @@ This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) f
 - **📖 [Documentation](https://github.com/imagedthat/electronx/wiki)** - Comprehensive guides
 - **💬 [Community Chat](https://discord.gg/electronx)** - Real-time community support
 
-### Security Issues
-For security vulnerabilities, please email **security@electronx.com** instead of creating public issues.
-
 ## ⚖️ Disclaimer
 
 **ElectronX** is an unofficial desktop client for X.com (formerly Twitter). This application is not affiliated with, endorsed by, or sponsored by X Corp, Twitter
