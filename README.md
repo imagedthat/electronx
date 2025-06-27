@@ -486,7 +486,6 @@ This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) f
 - **🐛 [Bug Reports](https://github.com/imagedthat/electronx/issues)** - Report bugs and issues
 - **💡 [Feature Requests](https://github.com/imagedthat/electronx/discussions)** - Suggest new features
 - **📖 [Documentation](https://github.com/imagedthat/electronx/wiki)** - Comprehensive guides
-- **💬 [Community Chat](https://discord.gg/electronx)** - Real-time community support
 
 ## ⚖️ Disclaimer
 
