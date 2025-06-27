@@ -1,0 +1,163 @@
+appId: com.electronx.app
+productName: ElectronX
+directories:
+  output: build
+  buildResources: assets
+
+files:
+  - dist/**/*
+  - node_modules/**/*
+  - assets/**/*
+  - "!**/*.{iml,o,hprof,orig,pyc,pyo,rbc,swp,csproj,sln,xproj}"
+  - "!.editorconfig"
+  - "!**/._*"
+  - "!**/{.DS_Store,.git,.hg,.svn,CVS,RCS,SCCS,.gitignore,.gitattributes}"
+  - "!**/{__pycache__,thumbs.db,.flowconfig,.idea,.vs,.nyc_output}"
+  - "!**/{appveyor.yml,.travis.yml,circle.yml}"
+  - "!**/{npm-debug.log,yarn.lock,.yarn-integrity,.yarn-metadata.json}"
+  - "!src/**/*"
+  - "!tests/**/*"
+  - "!scripts/**/*"
+  - "!docs/**/*"
+
+extraMetadata:
+  main: dist/main/index.js
+
+mac:
+  category: public.app-category.social-networking
+  icon: assets/icons/icon.icns
+  hardenedRuntime: true
+  gatekeeperAssess: false
+  entitlements: build/entitlements.mac.plist
+  entitlementsInherit: build/entitlements.mac.plist
+  darkModeSupport: true
+  target:
+    - target: dmg
+      arch: [x64, arm64]
+    - target: zip
+      arch: [x64, arm64]
+  notarize:
+    teamId: ${APPLE_TEAM_ID}
+
+dmg:
+  title: ElectronX ${version}
+  icon: assets/icons/icon.icns
+  background: assets/dmg-background.png
+  window:
+    width: 540
+    height: 380
+  contents:
+    - x: 140
+      y: 210
+      type: file
+    - x: 400
+      y: 210
+      type: link
+      path: /Applications
+
+win:
+  target:
+    - target: nsis
+      arch: [x64, ia32]
+    - target: portable
+      arch: [x64]
+  icon: assets/icons/icon.ico
+  publisherName: ElectronX Team
+  verifyUpdateCodeSignature: false
+  requestedExecutionLevel: asInvoker
+
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  menuCategory: true
+  shortcutName: ElectronX
+  installerIcon: assets/icons/icon.ico
+  uninstallerIcon: assets/icons/icon.ico
+  installerHeaderIcon: assets/icons/icon.ico
+  deleteAppDataOnUninstall: false
+  displayLanguageSelector: true
+  multiLanguageInstaller: true
+  allowElevation: true
+  runAfterFinish: true
+
+linux:
+  target:
+    - target: AppImage
+      arch: [x64]
+    - target: deb
+      arch: [x64]
+    - target: rpm
+      arch: [x64]
+    - target: tar.gz
+      arch: [x64]
+  icon: assets/icons/icon.png
+  category: Network
+  description: A secure, cross-platform desktop wrapper for X.com
+  vendor: ElectronX Team
+  maintainer: ElectronX Team <hello@electronx.com>
+  desktop:
+    Name: ElectronX
+    Comment: A secure desktop client for X.com
+    GenericName: Social Media Client
+    Keywords: twitter;x;social;media;desktop
+    StartupWMClass: ElectronX
+    MimeType: x-scheme-handler/x;x-scheme-handler/twitter
+
+appImage:
+  artifactName: ${productName}-${version}-${arch}.${ext}
+
+deb:
+  depends:
+    - libgtk-3-0
+    - libnotify4
+    - libnss3
+    - libxss1
+    - libxtst6
+    - xdg-utils
+    - libatspi2.0-0
+    - libdrm2
+    - libxcomposite1
+    - libxdamage1
+    - libxrandr2
+    - libgbm1
+    - libxkbcommon0
+    - libasound2
+
+rpm:
+  depends:
+    - gtk3
+    - libnotify
+    - nss
+    - libXScrnSaver
+    - libXtst
+    - xdg-utils
+    - at-spi2-atk
+    - libdrm
+    - libXcomposite
+    - libXdamage
+    - libXrandr
+    - mesa-libgbm
+    - libxkbcommon
+
+# Auto-updater configuration
+publish:
+  provider: github
+  owner: imagedthat
+  repo: electronx
+  private: false
+  releaseType: release
+
+# Build configuration
+compression: maximum
+removePackageScripts: true
+buildDependenciesFromSource: false
+
+# Security
+afterSign: build/notarize.js
+afterAllArtifactBuild: build/after-build.js
+
+# Environment variables for build
+env:
+  NODE_ENV: production
